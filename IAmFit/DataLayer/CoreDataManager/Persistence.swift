@@ -53,13 +53,20 @@ extension CoreDataManager {
         }
     }
     
-    func updateUser(user: UserInfoPO) {
-        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
-        let users = try? managedObjectContext.fetch(fetchRequest)
-        if let managedObjUser = users?.first {
-            managedObjUser.mapValues(userPO: user)
+    func updateUser(user: UserInfoPO) -> Future<Void, CoreDataError> {
+        return Future { [weak self] promise in
+            guard let self else {
+                return promise(.failure(.failure))
+            }
+            let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+            let users = try? managedObjectContext.fetch(fetchRequest)
+            if let managedObjUser = users?.first {
+                managedObjUser.mapValues(userPO: user)
+                saveContext()
+                promise(.success(Void()))
+            }
+            return promise(.failure(.notFound))
         }
-        saveContext()
     }
     
     func getUser() -> Future<UserInfoPO?, CoreDataError> {

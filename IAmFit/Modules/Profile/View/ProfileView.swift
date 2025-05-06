@@ -22,7 +22,7 @@ struct ProfileView: View {
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
                     
                 Button {
-//                    viewModel.handleUserSaved()
+                    viewModel.buttonHandlerUpdateProfile()
                     
                 } label: {
                     Text("Update Profile")
@@ -39,6 +39,12 @@ struct ProfileView: View {
         .onAppear {
             viewModel.fetchProfileData()
         }
+        .alert("IAmFit", isPresented: $viewModel.updateUserAlert) {
+                    Button("OK", role: .cancel) { }
+                } message: {
+                    Text(viewModel.alertMessage)
+                }
+
     }
 }
 

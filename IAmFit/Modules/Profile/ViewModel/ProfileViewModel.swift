@@ -13,8 +13,15 @@ class ProfileViewModel: ObservableObject {
     @Published var age: String = ""
     @Published var weight: String = ""
     @Published var height: String = ""
+    @Published var updateUserAlert: Bool = false
+    var alertMessage: String = "" {
+        didSet {
+            updateUserAlert = true
+        }
+    }
     
     var cancellables: Set<AnyCancellable> = []
+
     
     func fetchProfileData() {
         CoreDataManager.shared.getUser()
@@ -44,5 +51,19 @@ class ProfileViewModel: ObservableObject {
     func buttonHandlerUpdateProfile() {
         let user = UserInfoPO(name: name, age: Double(age), height: Double(height), weight: Double(weight))
         CoreDataManager.shared.updateUser(user: user)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    self.alertMessage = "Profile updated successfuly."
+                    
+                case .failure(let error):
+                    self.alertMessage = "Failed to update profile."
+                }
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancellables)
+
     }
 }
