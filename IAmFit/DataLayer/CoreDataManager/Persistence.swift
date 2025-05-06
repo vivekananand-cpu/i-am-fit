@@ -69,6 +69,21 @@ extension CoreDataManager {
         }
     }
     
+    func deleteUser() -> Future<Void, CoreDataError> {
+        return Future { [weak self] promise in
+            guard let self else {
+                return promise(.failure(.failure))
+            }
+            let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+            let users = try? managedObjectContext.fetch(fetchRequest)
+            if let managedObjUser = users?.first {
+                managedObjectContext.delete(managedObjUser)
+                saveContext()
+            }
+            return promise(.failure(.notFound))
+        }
+    }
+    
     func getUser() -> Future<UserInfoPO?, CoreDataError> {
         return Future { [weak self] promise in
             guard let self else {

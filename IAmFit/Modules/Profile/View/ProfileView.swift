@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @AppStorage("isUserExist") var isUserExist = false
     @StateObject var viewModel = ProfileViewModel()
     var body: some View {
         VStack {
@@ -20,31 +21,59 @@ struct ProfileView: View {
                 TextFieldRounded(label: "Age", text: $viewModel.age)
                 TextFieldRounded(label: "Weight(KG)", text: $viewModel.weight)
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
-                    
-                Button {
-                    viewModel.buttonHandlerUpdateProfile()
-                    
-                } label: {
-                    Text("Update Profile")
-                }
-                .padding(.top, 10)
                 
-
+                VStack(spacing: 12) {
+                    Button {
+                        viewModel.buttonHandlerUpdateProfile()
+                        
+                    } label: {
+                        Text("Update Profile")
+                    }
                     
+                    Spacer()
+                    
+                    Button {
+                        deleteUser()
+                    } label: {
+                        Text("Delete Profile")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                            .padding()
+                            .background(
+                                Color.red
+                            )
+                    }
+                }
+                
             }
             
             Spacer()
             
         }
+        .padding()
         .onAppear {
             viewModel.fetchProfileData()
         }
         .alert("IAmFit", isPresented: $viewModel.updateUserAlert) {
-                    Button("OK", role: .cancel) { }
-                } message: {
-                    Text(viewModel.alertMessage)
-                }
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(viewModel.alertMessage)
+        }
+        
+    }
+}
 
+extension ProfileView {
+    func deleteUser() {
+        viewModel.deleteUser()
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                isUserExist = false
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &viewModel.cancellables)
+        
     }
 }
 

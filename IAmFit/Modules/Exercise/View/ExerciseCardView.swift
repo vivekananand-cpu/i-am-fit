@@ -18,7 +18,7 @@ struct ExerciseCardView: View {
                 .padding(4)
                 .foregroundStyle(.white)
                 .background(
-                    Color.red
+                    Color.blue
                 )
                 .cornerRadius(6)
         }

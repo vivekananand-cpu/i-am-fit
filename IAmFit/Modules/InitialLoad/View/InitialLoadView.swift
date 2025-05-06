@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct InitialLoadView: View {
-    @ObservedObject var viewModel: InitialLoadViewModel
+    @AppStorage("isUserExist") var isUserExist = false
+    @StateObject var viewModel: InitialLoadViewModel = InitialLoadViewModel()
     var body: some View {
         VStack {
             Text("Welcome to IAmFit!")
@@ -22,7 +23,7 @@ struct InitialLoadView: View {
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
                     
                 Button {
-                    viewModel.buttonHanderSubmit()
+                    handleSubmit()
                     
                 } label: {
                     Text("Submit")
@@ -37,6 +38,20 @@ struct InitialLoadView: View {
             
         }
         .padding()
+    }
+}
+
+extension InitialLoadView {
+    func handleSubmit() {
+        viewModel.buttonHanderSubmit()
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                isUserExist = true
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &viewModel.cancellables)
+
     }
 }
 

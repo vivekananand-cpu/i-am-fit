@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class ProfileViewModel: ObservableObject {
     @Published var name: String = ""
@@ -14,6 +15,8 @@ class ProfileViewModel: ObservableObject {
     @Published var weight: String = ""
     @Published var height: String = ""
     @Published var updateUserAlert: Bool = false
+    
+    @AppStorage("isUserExist") var isUserExist = false
     var alertMessage: String = "" {
         didSet {
             updateUserAlert = true
@@ -65,5 +68,9 @@ class ProfileViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
+    }
+    
+    func deleteUser() -> Future<Void, CoreDataError> {
+        return CoreDataManager.shared.deleteUser()
     }
 }
