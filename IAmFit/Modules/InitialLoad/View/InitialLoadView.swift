@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InitialLoadView: View {
-    @StateObject var viewModel = InitialLoadViewModel()
+    @ObservedObject var viewModel: InitialLoadViewModel
     var body: some View {
         VStack {
             Text("Welcome to IAmFit!")
@@ -22,7 +22,7 @@ struct InitialLoadView: View {
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
                     
                 Button {
-                    viewModel.handleUserSaved()
+                    viewModel.buttonHanderSubmit()
                     
                 } label: {
                     Text("Submit")
@@ -41,5 +41,5 @@ struct InitialLoadView: View {
 }
 
 #Preview {
-    InitialLoadView()
+    InitialLoadView(viewModel: InitialLoadViewModel())
 }

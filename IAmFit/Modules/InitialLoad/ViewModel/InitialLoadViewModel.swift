@@ -14,8 +14,12 @@ class InitialLoadViewModel: ObservableObject {
     @Published var weight: String = ""
     @Published var height: String = ""
     
-    var cancellables: Set<AnyCancellable> = []
+    @Published var isUserExist: Bool = false
     
+    var cancellables: Set<AnyCancellable> = []
+    init () {
+        isUserExist = CoreDataManager.shared.isUserExist()
+    }
     
     func buttonHanderSubmit() {
         let user = UserInfoPO(name: name, age: Double(age), height: Double(height), weight: Double(weight))
@@ -31,6 +35,7 @@ class InitialLoadViewModel: ObservableObject {
     
     
     func handleUserSaved() {
-        print("User saved.")
+        isUserExist = true
+        print("user saved")
     }
 }

@@ -10,9 +10,15 @@ import SwiftUI
 @main
 struct IAmFitApp: App {
 
+    @StateObject var viewModel = InitialLoadViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            HomeTabView()
+            if viewModel.isUserExist {
+                HomeTabView()
+            } else {
+                InitialLoadView(viewModel: viewModel)
+            }
         }
     }
 }

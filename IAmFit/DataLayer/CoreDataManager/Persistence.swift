@@ -52,4 +52,50 @@ extension CoreDataManager {
             return promise(.success(Void()))
         }
     }
+    
+    func updateUser(user: UserInfoPO) {
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        let users = try? managedObjectContext.fetch(fetchRequest)
+        if let managedObjUser = users?.first {
+            managedObjUser.mapValues(userPO: user)
+        }
+        saveContext()
+    }
+    
+    func getUser() -> Future<UserInfoPO?, CoreDataError> {
+        return Future { [weak self] promise in
+            guard let self else {
+                return promise(.failure(.failure))
+            }
+            
+            let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+            do {
+                let users = try self.managedObjectContext.fetch(fetchRequest)
+                if users.isEmpty {
+                    return promise(.failure(.notFound))
+                }
+                
+                if let user = users.first {
+                    return promise(.success(UserInfoPO(model: user)))
+                }
+                return promise(.failure(.notFound))
+                
+            } catch let error {
+                return promise(.failure(.failure))
+            }
+        }
+    }
+    
+    func isUserExist() -> Bool {
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        do {
+            let users = try managedObjectContext.fetch(fetchRequest)
+            if users.isEmpty {
+                return false
+            }
+            return true
+        } catch {
+            return false
+        }
+    }
 }

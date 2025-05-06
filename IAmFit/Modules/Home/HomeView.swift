@@ -22,14 +22,12 @@ struct HomeTabView: View {
                     Text("Reports")
                 }
             
-            Text("Profile Tab")
+            ProfileView()
                 .tabItem {
                     Image(systemName: "person.circle")
                     Text("Profile")
                 }
         }
-        .tint(.red)
-        
     }
 }
 
