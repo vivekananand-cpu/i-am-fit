@@ -12,7 +12,7 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     var body: some View {
         VStack {
-            Text("Welcome \(viewModel.name)!")
+            Text("Hello \(viewModel.name)!")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
@@ -34,6 +34,7 @@ struct ProfileView: View {
                 
                 VStack(spacing: 12) {
                     Button {
+                        
                         viewModel.buttonHandlerUpdateProfile()
                         
                     } label: {
