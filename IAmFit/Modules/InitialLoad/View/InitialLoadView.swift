@@ -27,6 +27,12 @@ struct InitialLoadView: View {
                     
                 } label: {
                     Text("Submit")
+                        .foregroundStyle(.white)
+                        .padding(4)
+                        .background(
+                            Color.red
+                        )
+                        .cornerRadius(8)
                 }
                 .padding(.top, 10)
                 

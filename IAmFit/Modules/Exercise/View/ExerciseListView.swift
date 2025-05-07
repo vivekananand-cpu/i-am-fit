@@ -13,7 +13,7 @@ struct ExerciseListView: View {
     var body: some View {
         NavigationStack {
             List(viewModel.exercises) { exercise in
-                NavigationLink(destination: Text(exercise.title)) {
+                NavigationLink(destination:ExerciseView(viewModel: ExerciseViewModel(exercise: exercise))) {
                     ExerciseCardView(exercise: exercise)
                 }
             }

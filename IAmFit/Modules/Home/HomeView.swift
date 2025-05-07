@@ -16,11 +16,12 @@ struct HomeTabView: View {
                     Text("Exercise")
                 }
             
-            Text("Calories burn exercise Tab")
+            ReportsView()
                 .tabItem {
                     Image(systemName: "chart.bar")
                     Text("Reports")
                 }
+               
             
             ProfileView()
                 .tabItem {
@@ -28,6 +29,7 @@ struct HomeTabView: View {
                     Text("Profile")
                 }
         }
+        .tint(.red)
     }
 }
 

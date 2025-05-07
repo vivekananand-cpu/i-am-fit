@@ -12,13 +12,13 @@ struct ExerciseCardView: View {
     var body: some View {
         VStack {
             GIFImageView(name: exercise?.gifName ?? "")
-                .frame(width: .infinity, height: 190)
-            Text(exercise?.title ?? "Six pack challenge")
+                .frame(width: .infinity, height: 180)
+            Text(exercise?.type.title ?? "Six pack challenge")
                 .font(.title3)
                 .padding(4)
                 .foregroundStyle(.white)
                 .background(
-                    Color.blue
+                    Color.red
                 )
                 .cornerRadius(6)
         }

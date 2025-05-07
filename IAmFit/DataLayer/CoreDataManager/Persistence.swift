@@ -25,6 +25,24 @@ class CoreDataManager: ObservableObject {
             if let error {
                 print(error.localizedDescription)
             }
+            if let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+                print("Core Data file path: \(url.path)")
+            }
+        }
+    }
+    
+    func getRecords<T: NSManagedObject>(type: T.Type, condtion: String? = nil, args: Any...) -> [T] {
+        let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: type))
+//        request.returnsObjectsAsFaults = false
+        if let condtion {
+            let predicate = NSPredicate(format: condtion, argumentArray: args)
+            request.predicate = predicate
+        }
+        do {
+            return try managedObjectContext.fetch(request)
+        } catch {
+            print("Failed to fetch data: \(error.localizedDescription)")
+            return []
         }
     }
     
@@ -38,7 +56,7 @@ class CoreDataManager: ObservableObject {
     }
 }
 
-
+//MARK: User operations
 extension CoreDataManager {
     func saveUser(user: UserInfoPO) -> Future<Void, CoreDataError> {
         return Future { [weak self] promise in
@@ -120,4 +138,26 @@ extension CoreDataManager {
             return false
         }
     }
+}
+
+
+//MARK: Exercise Operations
+
+extension CoreDataManager {
+    func insertExercise(exercise: ExercisePO)  {
+        self.managedObjectContext.perform {
+            let allsRecords = self.getRecords(type: Exercise.self, condtion: "name = %@", args: exercise.type.title)
+            if let managedObjExercise = allsRecords.first {
+                managedObjExercise.mapValues(model: exercise)
+                managedObjExercise.updated_at = Date()
+            } else {
+                let newManagedObjExercise = Exercise(context: self.managedObjectContext)
+                newManagedObjExercise.mapValues(model: exercise)
+            }
+            self.saveContext()
+            
+        }
+    }
+    
+   
 }

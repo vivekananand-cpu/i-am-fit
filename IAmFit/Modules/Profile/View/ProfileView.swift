@@ -28,6 +28,12 @@ struct ProfileView: View {
                         
                     } label: {
                         Text("Update Profile")
+                            .foregroundStyle(.white)
+                            .padding(4)
+                            .background(
+                                Color.red
+                            )
+                            .cornerRadius(8)
                     }
                     
                     Spacer()
