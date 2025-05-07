@@ -6,11 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 class ReportsViewModel: ObservableObject {
-    var chartsData: [ExerciseCaloriesModel] = [ExerciseCaloriesModel(calories: 34, exercise: "Six pack"),
-                                               ExerciseCaloriesModel(calories: 65, exercise: "Pushups"),
-                                               ExerciseCaloriesModel(calories: 34, exercise: "Crunches"),
-                                               ExerciseCaloriesModel(calories: 114, exercise: "Lunges")
-    ]
+    
+    @Published var reportsPO: ReportsPO = ReportsPO(model: [])
+    var anyCancelable: Set<AnyCancellable> = []
+    
+    func fetchReportsData() {
+        CoreDataManager.shared.fetchReportsData()
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                
+            } receiveValue: { reportsPO in
+                self.reportsPO = reportsPO
+            }
+            .store(in: &anyCancelable)
+
+    }
 }

@@ -9,16 +9,13 @@ import Foundation
 import Combine
 
 class InitialLoadViewModel: ObservableObject {
-    @Published var name: String = ""
-    @Published var age: String = ""
-    @Published var weight: String = ""
-    @Published var height: String = ""
+    @Published var userForm: UserForm = UserForm()
     
     var cancellables: Set<AnyCancellable> = []
     
     
     func buttonHanderSubmit() -> Future<Void, CoreDataError> {
-        let user = UserInfoPO(name: name, age: Double(age), height: Double(height), weight: Double(weight))
+        let user = UserInfoPO(name: userForm.name, age: Double(userForm.age), height: Double(userForm.height), weight: Double(userForm.weight))
         return CoreDataManager.shared.saveUser(user: user)
     }
     

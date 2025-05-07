@@ -8,21 +8,24 @@
 import SwiftUI
 
 struct ReportsView: View {
+    @StateObject var viewModel = ReportsViewModel()
     var body: some View {
         VStack {
-            Text("Calories Burned")
+            Text("Todays Report")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
             HStack(alignment: .center) {
-                CaloriesBurnView(caloriesModel: CaloriesBurnPO(title: "Total", calories: 352, unit: "kcal"))
-                ActiveTimeView(caloriesModel: ActiveTimePO(title: "Active Time", value: 34, unit: "min"))
+                CaloriesBurnView(caloriesModel: viewModel.reportsPO.totalCaloriesBurned)
+                ActiveTimeView(activeTime: viewModel.reportsPO.activeTime)
             }
             .padding()
             
-            CaloriesBurnChartView()
+            CaloriesBurnChartView(exerciseCalories: $viewModel.reportsPO.exerciseCalories)
         }
-        
+        .onAppear {
+            viewModel.fetchReportsData()
+        }
     }
 }
 
@@ -32,7 +35,7 @@ struct CaloriesBurnView: View {
         VStack {
             Text(caloriesModel.title)
                 .fontWeight(.semibold)
-            Text("\(caloriesModel.calories)")
+            Text(String(format: "%.2f", caloriesModel.calories))
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.red)
@@ -49,17 +52,17 @@ struct CaloriesBurnView: View {
 }
 
 struct ActiveTimeView: View {
-    var caloriesModel: ActiveTimePO
+    var activeTime: ActiveTimePO
     var body: some View {
         VStack {
-            Text(caloriesModel.title)
+            Text(activeTime.title)
                 .fontWeight(.semibold)
-            Text("\(caloriesModel.value)")
+            Text(String(format: "%.2f", activeTime.value))
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.red)
             
-            Text(caloriesModel.unit)
+            Text(activeTime.unit)
         }
         .frame(width: 110)
         .padding()

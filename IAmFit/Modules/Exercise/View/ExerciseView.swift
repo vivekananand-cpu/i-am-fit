@@ -40,7 +40,7 @@ struct ExerciseView: View {
                             .foregroundStyle(.white)
                             .padding()
                             .background(
-                                Color.green
+                                Color.red
                             )
                             .cornerRadius(10)
                     }

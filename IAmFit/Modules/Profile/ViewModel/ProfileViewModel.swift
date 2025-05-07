@@ -15,6 +15,7 @@ class ProfileViewModel: ObservableObject {
     @Published var weight: String = ""
     @Published var height: String = ""
     @Published var updateUserAlert: Bool = false
+    @Published var deleteProfileAlert: Bool = false
     
     @AppStorage("isUserExist") var isUserExist = false
     var alertMessage: String = "" {

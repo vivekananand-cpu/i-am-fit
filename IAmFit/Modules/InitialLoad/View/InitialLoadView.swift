@@ -17,10 +17,10 @@ struct InitialLoadView: View {
                 .fontWeight(.bold)
             
             VStack(spacing: 20) {
-                TextFieldRounded(label: "Name", text: $viewModel.name)
-                TextFieldRounded(label: "Age", text: $viewModel.age)
-                TextFieldRounded(label: "Weight(KG)", text: $viewModel.weight)
-                TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
+                TextFieldRounded(label: "Name", text: $viewModel.userForm.name)
+                TextFieldRounded(label: "Age", text: $viewModel.userForm.age)
+                TextFieldRounded(label: "Weight(KG)", text: $viewModel.userForm.weight)
+                TextFieldRounded(label: "Height(cm)", text: $viewModel.userForm.height)
                     
                 Button {
                     handleSubmit()

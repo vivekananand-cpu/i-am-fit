@@ -145,17 +145,31 @@ extension CoreDataManager {
 
 extension CoreDataManager {
     func insertExercise(exercise: ExercisePO)  {
+        let startOfDay = Calendar.current.startOfDay(for: Date())
+        let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay) ?? Date()
         self.managedObjectContext.perform {
-            let allsRecords = self.getRecords(type: Exercise.self, condtion: "name = %@", args: exercise.type.title)
+            let allsRecords = self.getRecords(type: Exercise.self, condtion: "name = %@ AND (created_at > %@ AND created_at < %@)", args: exercise.type.title, startOfDay, endOfDay)
+            let user = self.getRecords(type: User.self).first
             if let managedObjExercise = allsRecords.first {
-                managedObjExercise.mapValues(model: exercise)
+                managedObjExercise.mapValues(model: exercise, user: user)
                 managedObjExercise.updated_at = Date()
             } else {
                 let newManagedObjExercise = Exercise(context: self.managedObjectContext)
-                newManagedObjExercise.mapValues(model: exercise)
+                newManagedObjExercise.mapValues(model: exercise, user: user)
             }
             self.saveContext()
             
+        }
+    }
+    
+    func fetchReportsData() -> Future<ReportsPO, CoreDataError> {
+        return Future {[weak self] promise in
+            guard let self else {
+                return promise(.failure(.failure))
+            }
+            
+            let allRecords = getRecords(type: Exercise.self)
+            return promise(.success(ReportsPO(model: allRecords)))
         }
     }
     

@@ -12,11 +12,12 @@ import CoreData
 @objc(Exercise)
 public class Exercise: NSManagedObject {
 
-    func mapValues(model: ExercisePO) {
+    func mapValues(model: ExercisePO, user: User?) {
         if self.id == nil {
             self.id = UUID().uuidString.lowercased()
         }
         self.name = model.type.title
+        self.belongs_to_user = user
         if self.duration == nil {
             self.duration = model.duration
         } else {

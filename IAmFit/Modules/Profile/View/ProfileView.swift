@@ -39,7 +39,7 @@ struct ProfileView: View {
                     Spacer()
                     
                     Button {
-                        deleteUser()
+                        viewModel.deleteProfileAlert = true
                     } label: {
                         Text("Delete Profile")
                             .foregroundStyle(.white)
@@ -64,6 +64,12 @@ struct ProfileView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text(viewModel.alertMessage)
+        }
+        .alert("Are you sure you want to delete your profile?", isPresented: $viewModel.deleteProfileAlert) {
+            Button("cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                deleteUser()
+            }
         }
         
     }

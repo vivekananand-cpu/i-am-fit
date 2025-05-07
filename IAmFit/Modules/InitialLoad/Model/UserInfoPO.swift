@@ -27,3 +27,10 @@ struct UserInfoPO {
         self.weight = model.weight
     }
 }
+
+struct UserForm {
+    var name: String = ""
+    var age: String = ""
+    var weight: String = ""
+    var height: String = ""
+}

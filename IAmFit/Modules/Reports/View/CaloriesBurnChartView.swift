@@ -9,20 +9,24 @@ import SwiftUI
 import Charts
 
 struct CaloriesBurnChartView: View {
-    @StateObject var viewModel = ReportsViewModel()
+    @Binding var exerciseCalories: [ExerciseCaloriesModel]
     var body: some View {
         VStack {
             Text("Chart")
                 .font(.title)
                 .fontWeight(.bold)
-            Chart(viewModel.chartsData) { data in
-                BarMark(
-                    x: .value("exercise", data.exercise),
-                    y: .value("Calories burned", data.calories)
-                )
-                
+            if exerciseCalories.isEmpty {
+                Text("No records found")
+            } else {
+                Chart(exerciseCalories) { data in
+                    BarMark(
+                        x: .value("exercise", data.exercise),
+                        y: .value("Calories burned", data.calories)
+                    )
+                    
+                }
+                .foregroundStyle(.red)
             }
-            .foregroundStyle(.red)
         }
         .padding()
         
@@ -30,5 +34,5 @@ struct CaloriesBurnChartView: View {
 }
 
 #Preview {
-    CaloriesBurnChartView()
+    CaloriesBurnChartView(exerciseCalories: .constant([]))
 }
