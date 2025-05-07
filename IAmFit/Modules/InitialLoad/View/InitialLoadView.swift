@@ -19,21 +19,33 @@ struct InitialLoadView: View {
             VStack(spacing: 20) {
                 TextFieldRounded(label: "Name", text: $viewModel.userForm.name)
                 TextFieldRounded(label: "Age", text: $viewModel.userForm.age)
+                    .onChange(of: viewModel.userForm.age) { newValue in
+                        viewModel.userForm.age = newValue.filter { $0.isNumber }
+                    }
                 TextFieldRounded(label: "Weight(KG)", text: $viewModel.userForm.weight)
+                    .onChange(of: viewModel.userForm.weight) { newValue in
+                        viewModel.userForm.weight = newValue.filter { $0.isNumber }
+                    }
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.userForm.height)
+                    .onChange(of: viewModel.userForm.height) { newValue in
+                        viewModel.userForm.height = newValue.filter { $0.isNumber }
+                    }
                     
                 Button {
                     handleSubmit()
                     
-                } label: {
+                }
+                label: {
+                    let bgColor = viewModel.isFormValid ? Color.red : Color.gray
                     Text("Submit")
                         .foregroundStyle(.white)
                         .padding(4)
                         .background(
-                            Color.red
+                            bgColor
                         )
                         .cornerRadius(8)
                 }
+                .disabled(!viewModel.isFormValid)
                 .padding(.top, 10)
                 
 
@@ -44,6 +56,7 @@ struct InitialLoadView: View {
             
         }
         .padding()
+        
     }
 }
 

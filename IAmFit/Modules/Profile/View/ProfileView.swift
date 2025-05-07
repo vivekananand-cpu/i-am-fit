@@ -18,9 +18,19 @@ struct ProfileView: View {
             
             VStack(spacing: 20) {
                 TextFieldRounded(label: "Name", text: $viewModel.name)
+                   
                 TextFieldRounded(label: "Age", text: $viewModel.age)
+                    .onChange(of: viewModel.age) { newValue in
+                        viewModel.age = newValue.filter{ $0.isNumber}
+                    }
                 TextFieldRounded(label: "Weight(KG)", text: $viewModel.weight)
+                    .onChange(of: viewModel.weight) { newValue in
+                        viewModel.age = newValue.filter{ $0.isNumber}
+                    }
                 TextFieldRounded(label: "Height(cm)", text: $viewModel.height)
+                    .onChange(of: viewModel.height) { newValue in
+                        viewModel.age = newValue.filter{ $0.isNumber}
+                    }
                 
                 VStack(spacing: 12) {
                     Button {

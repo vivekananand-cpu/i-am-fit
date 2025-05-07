@@ -18,6 +18,36 @@
             endingLineNumber = "150"
             landmarkName = "insertExercise(exercise:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1350023D-2FF9-4D33-BE0F-024C0F9DFC4F - 12bf5697d9045088"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "IAmFit.CoreDataManager.insertExercise(exercise: IAmFit.ExercisePO) -&gt; ()"
+                  moduleName = "IAmFit.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vivek/Documents/Projects/IAmFit/IAmFit/DataLayer/CoreDataManager/Persistence.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150">
+               </Location>
+               <Location
+                  uuid = "1350023D-2FF9-4D33-BE0F-024C0F9DFC4F - 67c24ece851b8a9c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in IAmFit.CoreDataManager.insertExercise(exercise: IAmFit.ExercisePO) -&gt; ()"
+                  moduleName = "IAmFit.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vivek/Documents/Projects/IAmFit/IAmFit/DataLayer/CoreDataManager/Persistence.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -34,6 +64,36 @@
             endingLineNumber = "153"
             landmarkName = "insertExercise(exercise:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4839C112-2952-4D24-BFBE-F8772057FB4D - 67c24ece851b8a7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in IAmFit.CoreDataManager.insertExercise(exercise: IAmFit.ExercisePO) -&gt; ()"
+                  moduleName = "IAmFit.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vivek/Documents/Projects/IAmFit/IAmFit/DataLayer/CoreDataManager/Persistence.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
+               </Location>
+               <Location
+                  uuid = "4839C112-2952-4D24-BFBE-F8772057FB4D - 67c24ece851b8a7f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in IAmFit.CoreDataManager.insertExercise(exercise: IAmFit.ExercisePO) -&gt; ()"
+                  moduleName = "IAmFit.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vivek/Documents/Projects/IAmFit/IAmFit/DataLayer/CoreDataManager/Persistence.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
