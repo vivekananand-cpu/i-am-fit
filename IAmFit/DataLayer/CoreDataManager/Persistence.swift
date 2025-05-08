@@ -167,8 +167,9 @@ extension CoreDataManager {
             guard let self else {
                 return promise(.failure(.failure))
             }
-            
-            let allRecords = getRecords(type: Exercise.self)
+            let startOfDay = Calendar.current.startOfDay(for: Date())
+            let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: startOfDay) ?? Date()
+            let allRecords = getRecords(type: Exercise.self, condtion: "created_at > %@ AND created_at < %@", args: startOfDay, endOfDay)
             return promise(.success(ReportsPO(model: allRecords)))
         }
     }
